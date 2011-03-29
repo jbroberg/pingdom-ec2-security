@@ -31,4 +31,4 @@ Just run it.
 	
 ## Copyright
 
-Copyright (c) 2011 Flextrip. See LICENSE.txt for further details.
+Copyright (c) 2011 Alex Kremer. See LICENSE.txt for further details.
