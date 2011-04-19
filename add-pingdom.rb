@@ -45,9 +45,10 @@ end
 resp_hash = JSON.parse(response)
 
 ec2 = AWS::EC2::Base.new(:access_key_id => AWS_ACCESS_KEY_ID, :secret_access_key => AWS_SECRET_ACCESS_KEY)
-begin
-  resp_hash["probes"].each do |probe|
-    PORT_NUMBERS.each do |port|
+
+resp_hash["probes"].each do |probe|
+  PORT_NUMBERS.each do |port|
+    begin
       puts "Adding #{probe["ip"]}:#{port}"
       ec2.authorize_security_group_ingress({
         :group_name => SECURITY_GROUP_NAME,
@@ -56,12 +57,15 @@ begin
         :to_port => port,
         :cidr_ip => "#{probe["ip"]}/32"
       })
+    rescue AWS::InvalidPermissionDuplicate
+      puts "Skipping #{probe["ip"]} since already present."
+      next
+    rescue Exception => e
+      puts "Caught exception adding #{probe["ip"]}"
+      puts "#{e.type}: #{e.message}"
+      Process.exit
     end
   end
-rescue Exception => e
-  puts "Caught exception adding security groups"
-  puts e.message
-  Process.exit
 end
 
 puts "Security groups added successfully."
