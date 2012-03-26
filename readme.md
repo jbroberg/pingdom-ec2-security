@@ -20,6 +20,7 @@ Configure the following environment variables at the top of the script:
 *	SECURITY\_GROUP\_NAME (the AWS security group you wish to add the pingdom servers to)
 *	PORT\_NUMBERS (an array of ports that you wish to give Pingdom probes access to. eg [80,443,8080])
 *	PROTOCOL (can be one of "tcp", "icmp", or "udp")
+*	SERVER (the Amazon EC2 endpoint for the region you wish to target)
 
 To enable just ping monitoring, set PORT\_NUMBERS to [-1] and PROTOCOL to "icmp"
 

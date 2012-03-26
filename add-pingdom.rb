@@ -15,6 +15,14 @@ AWS_SECRET_ACCESS_KEY = "lotsarandomchars"
 SECURITY_GROUP_NAME = "mygroup"
 PORT_NUMBERS = [-1]
 PROTOCOL = "icmp"
+# ec2.us-east-1.amazonaws.com for us-east-1
+# ec2.us-west-2.amazonaws.com for us-west-2
+# ec2.us-west-1.amazonaws.com for us-west-1
+# ec2.eu-west-1.amazonaws.com for eu-west-1
+# ec2.ap-southeast-1.amazonaws.com for ap-southeast-1
+# ec2.ap-northeast-1.amazonaws.com for ap-northeast-1
+# ec2.sa-east-1.amazonaws.com for sa-east-1
+SERVER = "us-east-1.ec2.amazonaws.com"
 # End variables
 
 # The following can be changed, but it's just generic info
@@ -44,7 +52,7 @@ end
 
 resp_hash = JSON.parse(response)
 
-ec2 = AWS::EC2::Base.new(:access_key_id => AWS_ACCESS_KEY_ID, :secret_access_key => AWS_SECRET_ACCESS_KEY)
+ec2 = AWS::EC2::Base.new(:access_key_id => AWS_ACCESS_KEY_ID, :secret_access_key => AWS_SECRET_ACCESS_KEY, :server => SERVER)
 
 resp_hash["probes"].each do |probe|
   PORT_NUMBERS.each do |port|
